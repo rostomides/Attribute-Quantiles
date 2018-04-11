@@ -2,7 +2,7 @@
 #Date : April 10, 2018
 #Version: 1.0
 
-#For a given column COL of numeric value in a dataset, this function append a new column containing the quntile number in which falls the corresponding numerical value. The appended column's name is "Quantiles + number of quantiles + COL".
+#For a given column COL of numeric values in a dataset, this function append a new column containing the quantile number in which falls the corresponding numerical value. The appended column's name is "Quantiles + number of quantiles + COL".
 #i.e. If a column Costs is splitted into 50 quantiles using this function, it will return the original dataset to which a column "Quantiles_50_Costs" is appended.
 
 Attribute_quantiles = function(dataset, column_name, n_quantiles){
