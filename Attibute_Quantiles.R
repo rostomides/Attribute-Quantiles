@@ -1,6 +1,6 @@
 #Created by : Larbi Bedrani
-#Date : April 10, 2018
-#Version: 1.0
+#Date : April 18, 2018
+#Version: 1.2
 
 #For a given column COL of numeric values in a dataset, this function append a new column containing the quantile number in which falls the corresponding numerical value. The appended column's name is "Quantiles + number of quantiles + COL".
 #i.e. If a column Costs is splitted into 50 quantiles using this function, it will return the original dataset to which a column "Quantiles_50_Costs" is appended.
@@ -25,10 +25,12 @@ Attribute_quantiles = function(dataset, column_name, n_quantiles){
   
   #Create the quantile labels vector (Append the quantile number to the letter Q)
   quantile_number <- 0
-  quantile_labels <- unlist(sapply(n_elements, function(x){
+  quantile_labels <-c()
+  qq <- sapply(n_elements, function(x){
     quantile_number <<- quantile_number + 1
-    return(rep(paste0("Q", quantile_number), x))
-  }))
+    quantile_labels <<-c(quantile_labels, rep(paste0("Q", quantile_number), x))
+    return()
+  })
   #Create a colomn allowing to get the initial ordering of the rows
   dataset <- cbind(dataset, "OrDeRiNg" = seq(1:nrow(dataset)))
   #Order the dataset by the column
@@ -46,5 +48,17 @@ Attribute_quantiles = function(dataset, column_name, n_quantiles){
 }
 
 
-#Disclamer: this code has been checked and tested for the results it returns, however it comes with no guarantee. If you choose to use it, use it at your own risks, Thanks.
+#######################
+#Test it!
+######################
+
+dataset = data.frame("labels"=sample(paste0("lab", seq(1000))), "Values"=rnorm(1000, 120, 6))
+
+
+dataset_15 = Attribute_quantiles(dataset=dataset, column_name="Values", n_quantiles=15)
+dataset_49 = Attribute_quantiles(dataset=dataset, column_name="Values", n_quantiles=49)
+dataset_1000 = Attribute_quantiles(dataset=dataset, column_name="Values", n_quantiles=1000)
+
+
+
 
